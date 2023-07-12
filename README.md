@@ -29,6 +29,7 @@ composer create-project topthink/think tp 6.0.*
 ~~~
 
 如果需要更新框架使用
+
 ~~~
 composer update topthink/framework
 ~~~

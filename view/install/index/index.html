@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Api Admin 安装程序</title>
+    <link href="__INDEX__/pear/css/pear.css" rel="stylesheet"/>
+    <link href="__INDEX__/layui/css/layui.css" rel="stylesheet"/>
+    <link href="__INDEX__/css/global.css" rel="stylesheet"/>
+    <style>
+        .install-container {
+            margin: 10px;
+            background-color: whitesmoke;
+        }
+
+        .install-header {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .install-header .title {
+            font-size: 30px;
+            font-weight: 550;
+            margin-left: 20px;
+            color: #5FB878;
+            display: inline-block;
+            height: 60px;
+            line-height: 60px;
+            margin-top: 10px;
+        }
+
+        .install-main {
+            padding: 40px 10px 15px;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body background="__INDEX__/images/background.svg" class="install-container">
+
+<header class="install-header">
+    <div class="title">Api - Admin</div>
+</header>
+
+<main class="layui-col-md12 install-main">
+    <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
+        <div carousel-item>
+            <div>
+                <form class="layui-form"  action="javascript:void(0);"
+                      style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">数据库地址:</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" type="text"  name="hostname" placeholder="请填写数据库地址"
+                                    value="127.0.0.1" lay-verify="required"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">数据库端口:</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" type="number"  name="hostport" placeholder="请填写数据库端口"
+                                     value="3306" lay-verify="required">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">数据库账号:</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" type="text" name="username" placeholder="请填写数据库账号"   lay-verify="required">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">数据库密码:</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" type="text" name="password" placeholder="请填写数据库密码"  lay-verify="required">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">数据库名称:</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" type="text" name="database" placeholder="请填写数据库名称"  lay-verify="required">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="pear-btn" type="reset">
+                                &emsp;重置&emsp;
+                            </button>
+                            <button class="pear-btn pear-btn-success" lay-filter="formStep" lay-submit>
+                                &emsp;下一步&emsp;
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <form class="layui-form" action="javascript:void(0);" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">管理员账号:</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" type="text" name="username" value="admin" placeholder="请填写管理员账号" lay-verify="required"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">管理员密码:</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" type="text" name="password" value="123456" placeholder="请填写管理员密码" lay-verify="required"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="button" class="pear-btn pear-btn-success pre">上一步</button>
+                            <button class="pear-btn pear-btn-success" lay-submit lay-filter="formStep2">
+                                &emsp;下一步&emsp;
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <div style="text-align: center;margin-top: 90px;">
+                    <div style="font-size: 14px;color: red;margin-top: 20px;">
+                        <p>注意:如果你的当前域名不是以admin作为子域名。</p>
+                        <p>请修改配置信息config/app.php中域名绑定项 否则无法访问后台路由</p>
+                    </div>
+                </div>
+                <div style="text-align: center;margin-top: 50px;">
+                    <button class="pear-btn pear-btn-success pre">上一步</button>
+                    <button class="pear-btn pear-btn-success go">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="__INDEX__/layui/layui.js" type="text/javascript"></script>
+<script src="__INDEX__/pear/pear.js" type="text/javascript"></script>
+<script>
+
+    layui.use(['form', 'step', 'element'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            step = layui.step;
+
+        step.render({
+            elem: '#stepForm',
+            filter: 'stepForm',
+            width: '100%',
+            stepWidth: '600px',
+            height: '500px',
+            stepItems: [{
+                title: '数据库'
+            }, {
+                title: '管理员'
+            }, {
+                title: '提交'
+            }]
+        });
+
+        form.on('submit(formStep)',function (data){
+            step.next('#stepForm');
+            return false;
+        });
+
+        form.on('submit(formStep2)',function (data){
+            step.next('#stepForm');
+            return false;
+        });
+
+        $('.pre').click(function (){
+            step.pre('#stepForm');
+            return false;
+        });
+
+        $('.go').click(function (){
+            layer.Load(4,'');
+            console.log(1);
+
+        })
+
+
+    })
+
+</script>
+</body>
+</html>

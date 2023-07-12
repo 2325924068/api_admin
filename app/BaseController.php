@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace app;
 
@@ -20,9 +20,13 @@ abstract class BaseController
 
     /**
      * 应用实例
-     * @var \think\App
+     * @var App
      */
     protected $app;
+    protected $get;
+    protected $post;
+    protected $isAjax;
+    protected $isPost;
 
     /**
      * 是否批量验证
@@ -39,11 +43,11 @@ abstract class BaseController
     /**
      * 构造方法
      * @access public
-     * @param  App  $app  应用对象
+     * @param App $app 应用对象
      */
     public function __construct(App $app)
     {
-        $this->app     = $app;
+        $this->app = $app;
         $this->request = $this->app->request;
 
         // 控制器初始化
@@ -52,15 +56,21 @@ abstract class BaseController
 
     // 初始化
     protected function initialize()
-    {}
+    {
+        $this->get = $this->request->get();
+        $this->post = $this->request->post();
+        $this->isAjax = $this->request->isAjax();
+        $this->isPost = $this->request->isPost();
+
+    }
 
     /**
      * 验证数据
      * @access protected
-     * @param  array        $data     数据
-     * @param  string|array $validate 验证器名或者验证规则数组
-     * @param  array        $message  提示信息
-     * @param  bool         $batch    是否批量验证
+     * @param array $data 数据
+     * @param string|array $validate 验证器名或者验证规则数组
+     * @param array $message 提示信息
+     * @param bool $batch 是否批量验证
      * @return array|string|true
      * @throws ValidateException
      */
@@ -75,7 +85,7 @@ abstract class BaseController
                 [$validate, $scene] = explode('.', $validate);
             }
             $class = false !== strpos($validate, '\\') ? $validate : $this->app->parseClass('validate', $validate);
-            $v     = new $class();
+            $v = new $class();
             if (!empty($scene)) {
                 $v->scene($scene);
             }
