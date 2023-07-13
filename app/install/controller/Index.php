@@ -13,13 +13,9 @@ class Index extends BaseController
         if($this->isAjax){
             $data = $this->post;
 
-
-
-
-
+            @touch('./install.lock');
+            $this->returnApi('安装成功',200,$data);
         }
-
-
 
         return View::fetch();
     }

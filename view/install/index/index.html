@@ -164,11 +164,13 @@
         });
 
         form.on('submit(formStep)',function (data){
+            sql = data.field;
             step.next('#stepForm');
             return false;
         });
 
         form.on('submit(formStep2)',function (data){
+            admin = data.field;
             step.next('#stepForm');
             return false;
         });
@@ -179,10 +181,18 @@
         });
 
         $('.go').click(function (){
-            layer.Load(4,'');
-            console.log(1);
+            layer.load();
+            $.ajax({
+                type:'POST',
+                data:Object.assign(sql,admin),
+                success:function (res){
+                    layer.closeAll('loading');
 
-        })
+                    console.log(res);
+
+                }
+            });
+        });
 
 
     })
